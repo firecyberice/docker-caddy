@@ -1,0 +1,10 @@
+image: firecyberice/caddy:latest
+manifests:
+  - image: firecyberice/caddy:amd64
+    platform:
+      architecture: amd64
+      os: linux
+  - image: firecyberice/caddy:arm
+    platform:
+      architecture: arm
+      os: linux
