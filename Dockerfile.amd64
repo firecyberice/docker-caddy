@@ -1,0 +1,47 @@
+FROM alpine:3.5
+
+RUN apk add --no-cache \
+  ca-certificates \
+  git \
+  openssh-client \
+  openssl \
+&& rm -rm /var/cache/apk
+
+# Install caddy
+ARG CADDY_FEATURES
+ENV CADDY_FEATURES ${CADDY_FEATURES:-"DNS,cors,filemanager,git,hugo,ipfilter,jwt,locale,minify,ratelimit,realip,upload"}
+RUN curl -fsSL https://getcaddy.com | bash -s ${CADDY_FEATURES}
+
+ENV USER=root \
+    USER_HOME=/root
+# uncomment for non root user
+#RUN adduser -Du 1000 ${USER}
+
+# Fix to use git plugin
+RUN mkdir /${USER_HOME}/.ssh \
+&& echo -e "\
+StrictHostKeyChecking no\\n\
+UserKnownHostsFile /dev/null\\n\
+" > /${USER_HOME}/.ssh/config
+
+# Install hugo
+ARG HUGO_VERSION
+ENV HUGO_VERSION ${HUGO_VERSION:-0.18.1}
+ENV URL="https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz"
+
+RUN curl -sSLo /tmp/hugo.tgz ${URL} \
+&& tar xzOf /tmp/hugo.tgz hugo_${HUGO_VERSION}_linux_amd64/hugo_${HUGO_VERSION}_linux_amd64 \
+| cat - > /usr/local/bin/hugo && chmod +x /usr/local/bin/hugo && rm -rf /tmp/hugo.tgz
+
+# Add some debug tools
+RUN apk add --no-cache \
+bash \
+bind-tools \
+curl \
+drill \
+&& rm -rm /var/cache/apk
+
+USER ${USER}
+EXPOSE 53 53/udp 80 443 2015
+ENTRYPOINT ["caddy"]
+CMD ["--help"]
