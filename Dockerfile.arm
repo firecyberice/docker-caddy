@@ -1,7 +1,9 @@
 FROM armhf/alpine:3.5
 
 RUN apk add --no-cache \
+  bash \
   ca-certificates \
+  curl \
   git \
   openssh-client \
   openssl \
@@ -36,9 +38,7 @@ RUN curl -sSLo /tmp/hugo.tgz ${URL} \
 
 # Add some debug tools
 RUN apk add --no-cache \
-bash \
 bind-tools \
-curl \
 drill \
 && rm -rf /var/cache/apk
 

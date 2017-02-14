@@ -3,7 +3,9 @@
 
 ### Installed packages
 
+- bash
 - ca-certificates
+- curl
 - openssl
 - git (for caddy git plugin)
 - openssh-client
@@ -12,8 +14,6 @@
 - [hugo](https://gohugo.io)
 
 And for debugging:
-- curl
-- bash
 - bind-tools
 - drill
 

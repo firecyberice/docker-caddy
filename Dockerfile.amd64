@@ -1,7 +1,9 @@
 FROM alpine:3.5
 
 RUN apk add --no-cache \
+  bash \
   ca-certificates \
+  curl \
   git \
   openssh-client \
   openssl \
@@ -17,7 +19,7 @@ ENV USER=root \
 # uncomment for non root user
 #RUN adduser -Du 1000 ${USER}
 
-# Fix to use git plugin
+# Fix to use git plugin with caddy
 RUN mkdir /${USER_HOME}/.ssh \
 && echo -e "\
 StrictHostKeyChecking no\\n\
@@ -35,9 +37,7 @@ RUN curl -sSLo /tmp/hugo.tgz ${URL} \
 
 # Add some debug tools
 RUN apk add --no-cache \
-bash \
 bind-tools \
-curl \
 drill \
 && rm -rf /var/cache/apk
 
