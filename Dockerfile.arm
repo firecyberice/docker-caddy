@@ -1,4 +1,6 @@
-FROM armhf/alpine:3.5
+#FROM armhf/alpine:3.5
+# with qemu for cloud build
+FROM hypriot/rpi-alpine:3.5
 
 RUN apk add --no-cache \
   bash \
