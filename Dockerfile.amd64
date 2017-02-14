@@ -5,7 +5,7 @@ RUN apk add --no-cache \
   git \
   openssh-client \
   openssl \
-&& rm -rm /var/cache/apk
+&& rm -rf /var/cache/apk
 
 # Install caddy
 ARG CADDY_FEATURES
@@ -39,7 +39,7 @@ bash \
 bind-tools \
 curl \
 drill \
-&& rm -rm /var/cache/apk
+&& rm -rf /var/cache/apk
 
 USER ${USER}
 EXPOSE 53 53/udp 80 443 2015
