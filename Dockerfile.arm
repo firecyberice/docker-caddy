@@ -13,7 +13,7 @@ RUN apk add --no-cache \
 
 # Install caddy
 ARG CADDY_FEATURES
-ENV CADDY_FEATURES ${CADDY_FEATURES:-"DNS,cors,filemanager,git,hugo,ipfilter,jwt,locale,minify,ratelimit,realip,upload"}
+ENV CADDY_FEATURES ${CADDY_FEATURES:-"DNS,rfc2136,cors,filemanager,git,hugo,ipfilter,jwt,locale,minify,ratelimit,realip,upload"}
 RUN curl -fsSL https://getcaddy.com | bash -s ${CADDY_FEATURES}
 
 ENV USER=root \
