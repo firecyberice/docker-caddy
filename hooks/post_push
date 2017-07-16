@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "=> install manifest-tool"
-URL=https://github.com/estesp/manifest-tool/releases/download/v0.3.0/manifest-tool-amd64-linux
+URL=https://github.com/estesp/manifest-tool/releases/download/v0.6.0/manifest-tool-linux-amd64
 
 curl -sLo ./manifest-tool ${URL}
 chmod +x ./manifest-tool

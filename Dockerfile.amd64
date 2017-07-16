@@ -11,7 +11,7 @@ RUN apk add --no-cache \
 
 # Install caddy
 ARG CADDY_FEATURES
-ENV CADDY_FEATURES ${CADDY_FEATURES:-"DNS,rfc2136,cors,filemanager,git,hugo,ipfilter,jwt,locale,minify,ratelimit,realip,upload"}
+ENV CADDY_FEATURES ${CADDY_FEATURES:-"dns,http.authz,http.cgi,http.cors,http.expires,http.filemanager,http.filter,http.git,http.hugo,http.ipfilter,http.jwt,http.login,http.minify,http.nobots,http.prometheus,http.proxyprotocol,http.ratelimit,http.realip,http.restic,http.upload,net,tls.dns.rfc2136"}
 RUN curl -fsSL https://getcaddy.com | bash -s ${CADDY_FEATURES}
 
 ENV USER=root \
@@ -28,11 +28,11 @@ UserKnownHostsFile /dev/null\\n\
 
 # Install hugo
 ARG HUGO_VERSION
-ENV HUGO_VERSION ${HUGO_VERSION:-0.18.1}
-ENV URL="https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz"
+ENV HUGO_VERSION ${HUGO_VERSION:-0.25.1}
+ENV URL="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz"
 
 RUN curl -sSLo /tmp/hugo.tgz ${URL} \
-&& tar xzOf /tmp/hugo.tgz hugo_${HUGO_VERSION}_linux_amd64/hugo_${HUGO_VERSION}_linux_amd64 \
+&& tar xzOf /tmp/hugo.tgz hugo \
 | cat - > /usr/local/bin/hugo && chmod +x /usr/local/bin/hugo && rm -rf /tmp/hugo.tgz
 
 # Add some debug tools
