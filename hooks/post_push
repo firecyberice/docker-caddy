@@ -18,3 +18,12 @@ EOM
 echo "=> push multiarch"
 ./manifest-tool push from-spec manifest.yml
 
+
+VERSION="$(docker container run --rm -it ${DOCKER_REPO}:latest -version | cut -d ' ' -f 2 | tr -d '\r')"
+
+docker tag "${DOCKER_REPO}:latest" "${DOCKER_REPO}:${VERSION}"
+
+docker push "${DOCKER_REPO}:${VERSION}"
+
+
+
