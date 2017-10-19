@@ -28,7 +28,7 @@ UserKnownHostsFile /dev/null\\n\
 
 # Install hugo
 ARG HUGO_VERSION
-ENV HUGO_VERSION ${HUGO_VERSION:-0.25.1}
+ENV HUGO_VERSION ${HUGO_VERSION:-0.30}
 ENV URL="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz"
 
 RUN curl -sSLo /tmp/hugo.tgz ${URL} \
